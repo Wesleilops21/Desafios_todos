@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Cadastro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ffcc00, #cccccc);
+            color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #ffcc00;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #e6b800;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 200px;
+            height: 150px;
+            margin: 0 10px;
+            border-radius: 10px;
+            background: linear-gradient(to bottom right, #ffcc00, #cccccc);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cadastro de Usuário</h1>
+    <form id="cadastroForm">
+        <input type="text" placeholder="Nome" required>
+        <input type="tel" placeholder="Telefone" required>
+        <input type="text" placeholder="Escolaridade" required>
+        <input type="text" placeholder="Cidade" required>
+        <select required>
+            <option value="">Selecione o Sexo</option>
+            <option value="feminino">Feminino</option>
+            <option value="masculino">Masculino</option>
+        </select>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <div id="mensagem" style="display: none; margin-top: 20px;"></div>
+
+    <div class="image-container">
+        <img src="https://via.placeholder.com/200x150" alt="Imagem 1">
+        <img src="https://via.placeholder.com/200x150" alt="Imagem 2">
+        <img src="https://via.placeholder.com/200x150" alt="Imagem 3">
+    </div>
+
+    <script>
+        document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio do formulário
+            document.getElementById('mensagem').innerText = "Muito obrigado por se cadastrar!";
+            document.getElementById('mensagem').style.display = "block";
+        });
+    </script>
+
+</body>
+</html>
