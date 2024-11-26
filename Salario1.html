@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-top: 20px;
+        }
+        header img {
+            width: 150px;
+            height: auto;
+        }
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            width: 300px;
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #e7f7e7;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Mario.jpg" alt="Logo">
+        <h1>Folha de Pagamento</h1>
+    </header>
+    <form id="paymentForm">
+        <div>
+            <label for="name">Nome</label>
+            <input type="text" id="name" required>
+        </div>
+        <div>
+            <label for="grossSalary">Salário Bruto</label>
+            <input type="number" id="grossSalary" required>
+        </div>
+        <button type="button" onclick="calculate()">Calcular</button>
+    </form>
+    <div class="result" id="result" style="display: none;">
+        <p id="outputName"></p>
+        <p id="outputGross"></p>
+        <p id="outputTax"></p>
+        <p id="outputNet"></p>
+    </div>
+
+    <script>
+        function calculate() {
+            const name = document.getElementById('name').value;
+            const grossSalary = parseFloat(document.getElementById('grossSalary').value);
+            
+            if (!name || isNaN(grossSalary) || grossSalary <= 0) {
+                alert("Por favor, preencha os campos corretamente.");
+                return;
+            }
+            
+            // Cálculo de impostos
+            let tax = 0;
+            if (grossSalary <= 1903.98) {
+                tax = 0;
+            } else if (grossSalary <= 2826.65) {
+                tax = grossSalary * 0.075 - 142.80;
+            } else if (grossSalary <= 3751.05) {
+                tax = grossSalary * 0.15 - 354.80;
+            } else if (grossSalary <= 4664.68) {
+                tax = grossSalary * 0.225 - 636.13;
+            } else {
+                tax = grossSalary * 0.275 - 869.36;
+            }
+            
+            const netSalary = grossSalary - tax;
+
+            // Exibe resultados
+            document.getElementById('outputName').innerText = `Nome: ${name}`;
+            document.getElementById('outputGross').innerText = `Salário Bruto: R$ ${grossSalary.toFixed(2)}`;
+            document.getElementById('outputTax').innerText = `Imposto a Pagar: R$ ${tax.toFixed(2)}`;
+            document.getElementById('outputNet').innerText = `Salário Líquido: R$ ${netSalary.toFixed(2)}`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

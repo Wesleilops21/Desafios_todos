@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Pagamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            margin-top: 20px;
+        }
+        header img {
+            width: 150px;
+            height: auto;
+        }
+        form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            width: 300px;
+        }
+        form div {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            margin-top: 30px;
+            width: 80%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+        table th {
+            background-color: #f4f4f4;
+        }
+        .result-container {
+            margin-top: 20px;
+            width: 80%;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Mario.jpg" alt="Logo">
+        <h1>Folha de Pagamento</h1>
+    </header>
+    
+    <form id="paymentForm">
+        <div>
+            <label for="name">Nome</label>
+            <input type="text" id="name" required>
+        </div>
+        <div>
+            <label for="grossSalary">Salário Bruto</label>
+            <input type="number" id="grossSalary" required>
+        </div>
+        <button type="button" onclick="addRecord()">Adicionar</button>
+    </form>
+
+    <div class="result-container">
+        <table id="salaryTable">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Salário Bruto</th>
+                    <th>Imposto a Pagar</th>
+                    <th>Salário Líquido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Resultados serão inseridos aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function addRecord() {
+            const name = document.getElementById('name').value;
+            const grossSalary = parseFloat(document.getElementById('grossSalary').value);
+            
+            if (!name || isNaN(grossSalary) || grossSalary <= 0) {
+                alert("Por favor, preencha os campos corretamente.");
+                return;
+            }
+            
+            // Cálculo de imposto
+            let tax = 0;
+            if (grossSalary <= 1903.98) {
+                tax = 0;
+            } else if (grossSalary <= 2826.65) {
+                tax = grossSalary * 0.075 - 142.80;
+            } else if (grossSalary <= 3751.05) {
+                tax = grossSalary * 0.15 - 354.80;
+            } else if (grossSalary <= 4664.68) {
+                tax = grossSalary * 0.225 - 636.13;
+            } else {
+                tax = grossSalary * 0.275 - 869.36;
+            }
+            
+            const netSalary = grossSalary - tax;
+
+            // Criar uma nova linha na tabela
+            const table = document.getElementById('salaryTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            
+            const nameCell = newRow.insertCell(0);
+            const grossCell = newRow.insertCell(1);
+            const taxCell = newRow.insertCell(2);
+            const netCell = newRow.insertCell(3);
+            
+            nameCell.textContent = name;
+            grossCell.textContent = `R$ ${grossSalary.toFixed(2)}`;
+            taxCell.textContent = `R$ ${tax.toFixed(2)}`;
+            netCell.textContent = `R$ ${netSalary.toFixed(2)}`;
+            
+            // Limpar os campos do formulário
+            document.getElementById('name').value = '';
+            document.getElementById('grossSalary').value = '';
+        }
+    </script>
+</body>
+</html>
